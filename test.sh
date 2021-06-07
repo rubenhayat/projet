@@ -1,11 +1,19 @@
-#!/bin/bash
+#!/bin/sh
 
-sftp -oPort=22 demo@test.rebex.net
+#ce script necessite de creer les variables d environnement HOST, LOGIN et PASSWORD
 
-password
 
-get readme.txt
 
-exit
+/usr/bin/expect <<EOD 
+spawn sftp -oPort=22 "$LOGIN@$HOST"
+expect "Password:"
+send "$PASSWORD\n"
+expect "sftp>"
+send "get readme.txt\n"
+expect "sfpt>"
+send "exit\n"
+EOD
+
+
 
 
